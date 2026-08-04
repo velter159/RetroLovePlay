@@ -3,6 +3,7 @@ import { LandingComponent } from './landing/landing.component';
 import { HomepageComponent } from './homepage/homepage.component';
 import { MinigameComponent } from './minigame/minigame.component';
 import { AudioService } from './audio.service';
+import { CONFIG } from './config';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,7 @@ import { AudioService } from './audio.service';
   }
 })
 export class App {
+  readonly config = CONFIG;
   readonly audioService = inject(AudioService);
 
   // Track the active screen state reactively

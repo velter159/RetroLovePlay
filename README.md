@@ -1,59 +1,99 @@
-# AngelSite
+# 💖 Kawaii 8-Bit Retro Love & Anniversary Template 💖
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.0.7.
+Welcome to the **Retro Love & Anniversary Site**! This is a customizable, responsive, and kawaii 8-bit handheld console template built using **Angular v22** and **Tailwind CSS**. It is perfect for birthdays, Valentine's Day, anniversaries, or just to surprise a special someone!
 
-## Development server
+## Features
 
-To start a local development server, run:
+- 🎮 **Handheld Console UI**: Beautiful Hello Kitty / arcade console wrapper with interactive controls (D-Pad, A/B buttons, Select/Start options).
+- 🌸 **Interactive Chibi Minigame**: A retro side-scroller mini-game ("Chibi Run") with high scores, audio synthesis, and collision detection.
+- 🍛 **Memory Cartridges Grid**: 4 customizable cartridges containing photo galleries and descriptions of your best moments together.
+- 🎶 **Retro Audio Synth BGM**: KAWAII procedural music (Melody Synth) using native web audio synthesis (no heavy external assets required).
+- 🧹 **Robust Codebase**: Zero memory leaks (automated cancellation loops), SSR-safe storage fallback, and fully responsive layouts.
 
+---
+
+## 🛠️ Customization Guide
+
+You can customize the entire website by editing a single file: `src/app/config.ts`. Open this file to modify names, captions, love letters, and stories.
+
+### Configuration Fields (`src/app/config.ts`)
+
+| Property | Type | Description |
+|---|---|---|
+| `siteTitle` | `string` | Browser tab title. |
+| `siteBranding` | `string` | Text logo displayed on the console screen (e.g. `ANGEL PLAY`, `RETRO PLAY`). |
+| `p1Name` | `string` | Player name displayed in the bottom HUD status bar (e.g. `PLAYER 1`). |
+| `landingHeadline` | `string` | Main heading on the arcade card screen. Supports `\n` newlines. |
+| `landingSubtitle` | `string` | Sweet subtitle on the arcade card screen. |
+| `homepageHeader` | `string` | Welcome message on the homepage. |
+| `portraitImage` | `string` | Path to the picture inside the SELECT overlay (relative to `public/`). |
+| `portraitTitle` | `string` | Header of the portrait frame (e.g. `🌸 SWEETEST BOND 🌸`). |
+| `portraitCaption` | `string` | Label below the portrait picture (e.g. `YOU & ME`). |
+| `portraitLoveNote` | `string` | Flashing pink note under the portrait (e.g. `FOREVER & ALWAYS 💖`). |
+| `gameTitle` | `string` | Title of the mini-game. |
+| `gameHighscoreKey` | `string` | The key used to save highscores in local storage. |
+| `memories` | `MemoryCard[]` | Array of 4 memory cartridge configs (see details below). |
+
+### Memory Card Structure
+
+Each memory card in the `memories` array contains:
+- `id` (1 to 4): Cartridge identifier.
+- `title`: Cartridge title.
+- `emoji`: Visual emoji shown on the cartridge sticker.
+- `desc`: A short preview description.
+- `details`: The main diary entry or love letter.
+- `colorClass`: The background color class for the cartridge (e.g. `bg-pink-100`, `bg-blue-100`).
+- `image1` to `image4`: Paths to retro JRPG pixel images (e.g. `images/first_date_1.png`).
+- `image1Caption` to `image4Caption`: Short descriptions for each photo (supports suffix emojis).
+- `underMaintenance` (optional): If set to `true`, clicking this cartridge loads a cute "8-bit construction/warning" hazard console screen.
+
+### Changing Assets
+
+- **Images**: Place your own photos/pixel art inside `public/images/`. Update the image paths in `src/app/config.ts`.
+- **Browser Icon (Favicon)**: Replace `public/sakura.png` and `public/2favicon.ico` with your preferred favicon image.
+- **Global Theme Colors**: If you want to change the pink retro colors, edit the Tailwind custom CSS themes in `src/styles.css` under the `@theme` block.
+
+---
+
+## 🚀 Running Locally
+
+To serve the project locally:
+
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the Angular dev server:
+   ```bash
+   npm start
+   ```
+3. Open your browser and navigate to `http://localhost:4200/`.
+
+---
+
+## 🧪 Testing
+
+To run unit tests:
 ```bash
-ng serve
+npm run test
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 📦 Deployment Guide
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+This project is deployment-ready for static hosting sites like **Netlify**, **Vercel**, **GitHub Pages**, or **Render**.
 
-```bash
-ng generate component component-name
-```
+### Build Settings
+When setting up deployment on your provider, configure the build settings as follows:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- **Build Command**: `npm run build`
+- **Publish Directory / Output Directory**: `dist/angel-site/browser`
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+#### Deployment Example (Netlify)
+1. Push your code to GitHub.
+2. Link your repository to Netlify.
+3. Configure settings:
+   - **Build Command**: `npm run build`
+   - **Publish directory**: `dist/angel-site/browser`
+4. Click **Deploy**. Done!

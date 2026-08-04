@@ -1,5 +1,6 @@
 import { Component, output, signal, OnDestroy, inject } from '@angular/core';
 import { AudioService } from '../audio.service';
+import { CONFIG } from '../config';
 
 interface HeartParticle {
   id: number;
@@ -28,7 +29,10 @@ interface HeartParticle {
       <div class="pixel-border-lg bg-[var(--hk-cream)] p-6 md:p-8 max-w-md w-full text-center relative z-10 flex flex-col items-center gap-6 shadow-[8px_8px_0_rgba(0,0,0,0.15)]">
         
         <!-- Pixel Hello Kitty Style Bow -->
-        <div class="bow-wrapper w-20 h-14 bounce-retro cursor-pointer" (click)="onBowClick()">
+        <button type="button" 
+                class="bow-wrapper w-20 h-14 bounce-retro cursor-pointer border-none bg-transparent outline-none p-0 focus-visible:ring-4 focus-visible:ring-pink-300 rounded" 
+                (click)="onBowClick()"
+                aria-label="Play bow chime sound">
           <svg viewBox="0 0 24 16" class="w-full h-full" fill="none" xmlns="http://www.w3.org/2000/svg">
             <!-- Outlines -->
             <path d="M4 1h16M2 2h2m16 0h2M1 4h1m20 0h1M1 6h1m20 0h1M2 8h2m16 0h2M4 9h16" stroke="#4a0e17" stroke-width="1.2" stroke-linecap="square"/>
@@ -44,18 +48,18 @@ interface HeartParticle {
             <!-- Inner bow details -->
             <path d="M6 4h1v2H6zm11 0h1v2h-1z" fill="#4a0e17"/>
           </svg>
-        </div>
+        </button>
 
         <!-- Animated Headline -->
         <div class="w-full">
-          <h1 class="text-xs md:text-sm font-pixel leading-relaxed text-[var(--hk-text)] tracking-wider">
-            HAPPY NATIONAL<br>GIRLFRIEND DAY!
+          <h1 class="text-xs md:text-sm font-pixel leading-relaxed text-[var(--hk-text)] tracking-wider" style="white-space: pre-line">
+            {{ config.landingHeadline }}
           </h1>
         </div>
 
         <!-- Sweet Subtitle -->
         <p class="text-sm md:text-base text-[var(--hk-text)] font-semibold leading-relaxed max-w-[280px]">
-          "A sweet retro surprise made just for the most beautiful girl in the world! 🌸"
+          "{{ config.landingSubtitle }}"
         </p>
 
         <!-- The main press me button -->
@@ -76,6 +80,7 @@ interface HeartParticle {
   `
 })
 export class LandingComponent implements OnDestroy {
+  readonly config = CONFIG;
   private readonly audioService = inject(AudioService);
   
   // Emitter to notify parent view transition

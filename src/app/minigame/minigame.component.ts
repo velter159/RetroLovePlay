@@ -1,5 +1,6 @@
-import { Component, signal, inject, output } from '@angular/core';
+import { Component, signal, inject, output, OnDestroy } from '@angular/core';
 import { AudioService } from '../audio.service';
+import { CONFIG } from '../config';
 
 interface Obstacle {
   id: number;
@@ -141,7 +142,7 @@ interface Obstacle {
         <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center p-4 z-20">
           <div class="bg-[var(--hk-cream)] border-4 border-[#4a0e17] rounded p-4 text-center max-w-[200px] shadow-[4px_4px_0_#4a0e17] animate-in zoom-in-95 duration-150">
             <h2 class="text-[10px] md:text-[10px] font-pixel text-[#ff477e] mb-2 animate-bounce">
-              🎀 ANGEL RUN 🎀
+              {{ config.gameTitle }}
             </h2>
             <p class="text-[7px] font-pixel text-[var(--hk-text)] leading-normal mb-3">
               HELP HER JUMP OVER OBSTACLES!
@@ -212,7 +213,8 @@ interface Obstacle {
     }
   `
 })
-export class MinigameComponent {
+export class MinigameComponent implements OnDestroy {
+  readonly config = CONFIG;
   readonly audioService = inject(AudioService);
   
   // Game states
@@ -249,9 +251,18 @@ export class MinigameComponent {
 
   constructor() {
     // Load high score from local storage
-    const savedHighScore = localStorage.getItem('angel_run_high_score');
-    if (savedHighScore) {
-      this.highScore.set(parseInt(savedHighScore, 10));
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedHighScore = localStorage.getItem(CONFIG.gameHighscoreKey);
+      if (savedHighScore) {
+        this.highScore.set(parseInt(savedHighScore, 10));
+      }
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.frameId) {
+      cancelAnimationFrame(this.frameId);
+      this.frameId = null;
     }
   }
 
@@ -368,7 +379,9 @@ export class MinigameComponent {
         // Save new high score if achieved
         if (this.score() > this.highScore()) {
           this.highScore.set(this.score());
-          localStorage.setItem('angel_run_high_score', this.score().toString());
+          if (typeof window !== 'undefined' && window.localStorage) {
+            localStorage.setItem(CONFIG.gameHighscoreKey, this.score().toString());
+          }
         }
       }
       return !isOut;

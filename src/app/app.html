@@ -22,7 +22,7 @@
       
       <!-- Brand Logo -->
       <span class="text-[9px] font-pixel text-[var(--hk-text)] tracking-widest font-bold">
-        ANGEL PLAY
+        {{ config.siteBranding }}
       </span>
 
       <!-- Right decorative details -->
@@ -108,18 +108,18 @@
               
               <!-- Frame Header -->
               <div class="w-full text-center text-[7px] font-pixel text-[var(--hk-text)] border-b border-dashed border-[#4a0e17] pb-1.5 mb-2">
-                🌸 SWEETEST BOND 🌸
+                {{ config.portraitTitle }}
               </div>
 
               <!-- The Portrait Image -->
               <div class="w-full aspect-square bg-pink-100 relative overflow-hidden pixel-border-sm flex items-center justify-center">
-                <img src="images/Angel-Velter.jpeg" alt="Angel and Velter" class="w-full h-full object-cover">
+                <img [src]="config.portraitImage" [alt]="config.portraitCaption" class="w-full h-full object-cover">
               </div>
 
               <!-- Cute description/love notes -->
               <span class="pixel-img-caption leading-tight text-center mt-2 font-pixel">
-                ANGEL & VELTER<br>
-                <span class="text-[7px] text-[#ff477e] animate-pulse">FOREVER & ALWAYS 💖</span>
+                {{ config.portraitCaption }}<br>
+                <span class="text-[7px] text-[#ff477e] animate-pulse">{{ config.portraitLoveNote }}</span>
               </span>
             </div>
             
